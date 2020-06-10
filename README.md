@@ -1,8 +1,8 @@
-# Spark example
+# Zeppelin and Spark Run on Kubernete example
 
-Following this example, you will create a functional [Apache
-Spark](http://spark.apache.org/) cluster using Kubernetes and
-[Docker](http://docker.io).
+Following this example, you will create a [Apache Zeppelin](https://zeppelin.apache.org/) using functional [Apache
+Spark](http://spark.apache.org/) cluster as an interpreter running on Kubernetes.
+
 
 You will setup a Spark master service and a set of Spark workers using Spark's [standalone mode](http://spark.apache.org/docs/latest/spark-standalone.html).
 
