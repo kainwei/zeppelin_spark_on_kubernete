@@ -6,7 +6,7 @@ push: push-spark
 TAG = 2.4.5_v1
 
 spark:
-	docker build -t spark:$(TAG).
+	docker build -t spark:$(TAG) .
 	docker tag spark:2.4.5_v1 kainvey/spark:$(TAG)
 
 # Push to repository
