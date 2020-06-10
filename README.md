@@ -4,10 +4,6 @@ Following this example, you will create a [Apache Zeppelin](https://zeppelin.apa
 Spark](http://spark.apache.org/) cluster as an interpreter running on [Kubernete](https://kubernetes.io/).
 
 
-You will setup a Spark master service and a set of Spark workers using Spark's [standalone mode](http://spark.apache.org/docs/latest/spark-standalone.html).
-
-For the impatient expert, jump straight to the [tl;dr](#tldr)
-section.
 ### Why do this
 This is a good example to learn k8s and also how spark and zeppelin work.
 
@@ -21,6 +17,7 @@ The kubernete part from https://kubernetes.io/blog/2016/03/using-spark-and-zeppe
 
 The yaml files from early version of https://github.com/kubernetes/kubernetes.git (kubernetes/examples/spark is not there any more, I got them from others VCS who forked these four years ago) 
 
+
 ## Step Zero: Prerequisites
 
 This example assumes
@@ -31,7 +28,7 @@ This example assumes
 
 Optionally, your Kubernetes cluster should be configured with a Loadbalancer integration (automatically configured via kube-up or GKE)
 
-## Step One: Build
+## Step One: Build Service And Pods By Yaml Files
 
 ```sh
 $ git clone https://github.com/kainwei/zeppelin_spark_on_kubernete.git
@@ -62,7 +59,12 @@ $ kubectl port-forward zeppelin-controller-slfx6 80:8080 --address 0.0.0.0
 This establishes a secure link to the Kubernetes cluster and pod ```(zeppelin-controller-slfx6)``` and then forwards the port in question (8080) to local port 80, which will allow you to use Zeppelin safely.
 
 
-### Check to see if Master is running and accessible
+
+
+### Try Zeppelin With Spark
+Now that the secure proxy is up, visit http://<your ip>. You should see an intro page like this:
+![alt text](https://github.com/kainwei/zeppelin_spark_on_kubernete/blob/master/screenshot/zeppelin_welcom.png?raw=true)
+
 
 ```console
 $ kubectl get pods
