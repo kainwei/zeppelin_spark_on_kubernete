@@ -37,7 +37,10 @@ Optionally, your Kubernetes cluster should be configured with a Loadbalancer int
 $ git clone https://github.com/kainwei/zeppelin_spark_on_kubernete.git
 $ kubectl create -f zeppelin_spark_on_kubernete/kubernete_yaml
 ```
-```diff-‘zeppelin_spark_on_kubernete/kubernete_yaml’``` is a directory, so this command tells kubectl to create all of the Kubernetes objects defined in all of the YAML files in that directory. You don’t have to clone the entire repository, but it makes the steps of this demo just a little easier.
+```diff
+-‘zeppelin_spark_on_kubernete/kubernete_yaml’
+```
+is a directory, so this command tells kubectl to create all of the Kubernetes objects defined in all of the YAML files in that directory. You don’t have to clone the entire repository, but it makes the steps of this demo just a little easier.
 
 ```sh
 $ kubectl get pods
