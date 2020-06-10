@@ -1,10 +1,10 @@
-# Spark
+# Spark Image Building
 
-This is a Docker image appropriate for running Spark on Kuberenetes. It produces three main images:
-* `spark-master` - Runs a Spark master in Standalone mode and exposes a port for Spark and a port for the WebUI.
-* `spark-worker` - Runs a Spark worer in Standalone mode and connects to the Spark master via DNS name `spark-master`.
-* `zeppelin` - Runs a Zeppelin web notebook and connects to the Spark master via DNS name `spark-master` and exposes a port for the WebUI.
+### source
+Most of content from: https://github.com/kubernetes/application-images/tree/master/spark
+I changed initial image, because the original image is old when you run apt update, something wrong happened. So when you use this, maybe you need to udpate again.
 
-In addition, there are two additional pushed images:
-* `spark-base` - This base image for `spark-master` and `spark-worker` that starts nothing.
-* `spark-driver` - This image, just like the `zeppelin` image, allows running things like `pyspark` to connect to `spark-master`, but is lighter weight than the `zeppelin` image.
+### Build
+```sh
+docker build -t spark:2.4.5_v1 .
+```
