@@ -1,22 +1,25 @@
-# Zeppelin and Spark Run on Kubernete example
+# Zeppelin and Spark Run on Kubernete Example
 
 Following this example, you will create a [Apache Zeppelin](https://zeppelin.apache.org/) using functional [Apache
-Spark](http://spark.apache.org/) cluster as an interpreter running on Kubernetes.
+Spark](http://spark.apache.org/) cluster as an interpreter running on [Kubernete](https://kubernetes.io/).
 
 
 You will setup a Spark master service and a set of Spark workers using Spark's [standalone mode](http://spark.apache.org/docs/latest/spark-standalone.html).
 
 For the impatient expert, jump straight to the [tl;dr](#tldr)
 section.
+### Why do this
+This is a good example to learn k8s and also how spark and zeppelin work.
+
+Second one is although [Apache Zeppelin](https://zeppelin.apache.org/) have already provided solution how to run itself on kubernetes also it can start k8s pod for spark interpreter, unfortunately the solution are not very friendly(basically it's automatic starting interpreter function is not working well, also when it try to start spark pod, you can not pull the spark image from it's repository(not exist or need authentication)), so I built this for my self.
 
 ### Sources
 
-The Docker images are heavily based on https://github.com/mattf/docker-spark.
-And are curated in https://github.com/kubernetes/application-images/tree/master/spark
+The Spark and Zeppelin Docker images are heavily based on https://github.com/kubernetes/application-images/tree/master/spark
 
-The Spark UI Proxy is taken from https://github.com/aseigneurin/spark-ui-proxy.
+The kubernete part from https://kubernetes.io/blog/2016/03/using-spark-and-zeppelin-to-process-big-data-on-kubernetes/ 
 
-The PySpark examples are taken from http://stackoverflow.com/questions/4114167/checking-if-a-number-is-a-prime-number-in-python/27946768#27946768
+The yaml files from early version of https://github.com/kubernetes/kubernetes.git (kubernetes/examples/spark is not there any more, I got them from others VCS who forked these four years ago) 
 
 ## Step Zero: Prerequisites
 
