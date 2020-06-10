@@ -7,7 +7,7 @@ Spark](http://spark.apache.org/) cluster as an interpreter running on [Kubernete
 ### Why do this
 This is a good example to learn k8s and also how spark and zeppelin work.
 
-Second one is although [Apache Zeppelin](https://zeppelin.apache.org/) have already provided solution how to run itself on kubernetes also it can start k8s pod for spark interpreter, unfortunately the solution are not very friendly(basically it's automatic starting interpreter function is not working well, also when it try to start spark pod, you can not pull the spark image from it's repository(not exist or need authentication)), so I built this for my self.
+Second one is although [Apache Zeppelin](https://zeppelin.apache.org/) have already provided solution how to run itself on kubernetes also it can start k8s pod for spark interpreter, unfortunately the solution are not very friendly(basically it's automatic starting interpreter function is not working well, also when it try to start spark pod, you can not pull the spark image from it's repository(not exist or need authentication)), so I built this for myself.
 
 ### Sources
 
@@ -58,8 +58,11 @@ $ kubectl port-forward zeppelin-controller-slfx6 80:8080 --address 0.0.0.0
 This establishes a port mapping to the Kubernetes cluster and pod ```(zeppelin-controller-slfx6)``` and then forwards the port in pod (8080) to local port 80, which will allow you to use Zeppelin by your machine/node's ip.
 
 
-### Try Zeppelin With Spark
+### Step Tree: Try Zeppelin With Spark
 Now that the secure proxy is up, visit http://```<your ip>```. You should see an intro page like this:
 ![alt text](https://github.com/kainwei/zeppelin_spark_on_kubernete/blob/master/screenshot/zeppelin_welcom.png?raw=true)
+
+Some demo for Zeppelin:
+![alt text](https://github.com/kainwei/zeppelin_spark_on_kubernete/blob/master/screenshot/zeppelin_demo_spark_sql.png?raw=true)
 
 
