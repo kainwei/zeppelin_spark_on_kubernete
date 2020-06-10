@@ -37,10 +37,10 @@ Optionally, your Kubernetes cluster should be configured with a Loadbalancer int
 $ git clone https://github.com/kainwei/zeppelin_spark_on_kubernete.git
 $ kubectl create -f zeppelin_spark_on_kubernete/kubernete_yaml
 ```
-```diff
--‘zeppelin_spark_on_kubernete/kubernete_yaml’
-```
-is a directory, so this command tells kubectl to create all of the Kubernetes objects defined in all of the YAML files in that directory. You don’t have to clone the entire repository, but it makes the steps of this demo just a little easier.
+```‘zeppelin_spark_on_kubernete/kubernete_yaml’```is a directory, so this command tells kubectl to create all of the Kubernetes objects defined in all of the YAML files in that directory. You don’t have to clone the entire repository, but it makes the steps of this demo just a little easier.
+
+
+The pods (especially Apache Zeppelin) are somewhat large, so may take some time for Docker to pull the images. Once everything is running, you should see something similar to the following:
 
 ```sh
 $ kubectl get pods
@@ -51,52 +51,16 @@ spark-worker-controller-98w92     1/1     Running   0          4s
 spark-worker-controller-tkxhz     1/1     Running   0          4s
 zeppelin-controller-slfx6         1/1     Running   0          4s
 ```
-The pods (especially Apache Zeppelin) are somewhat large, so may take some time for Docker to pull the images. Once everything is running, you should see something similar to the following:
 
-Now list all namespaces:
+You can see that Kubernetes is running one instance of Zeppelin, one Spark master and three Spark workers.
 
+## Step Two: Set up the Secure Proxy to Zeppelin 
+Next you’ll set up a secure proxy from your local machine to Zeppelin, so you can access the Zeppelin instance running in the cluster from your machine. (Note: You’ll need to change this command to the actual Zeppelin pod that was created on your cluster.)
 ```sh
-$ kubectl get namespaces
-NAME          LABELS             STATUS
-default       <none>             Active
-spark-cluster name=spark-cluster Active
+$ kubectl port-forward zeppelin-controller-slfx6 80:8080 --address 0.0.0.0
 ```
+This establishes a secure link to the Kubernetes cluster and pod ```(zeppelin-controller-slfx6)``` and then forwards the port in question (8080) to local port 80, which will allow you to use Zeppelin safely.
 
-To configure kubectl to work with our namespace, we will create a new context using our current context as a base:
-
-```sh
-$ CURRENT_CONTEXT=$(kubectl config view -o jsonpath='{.current-context}')
-$ USER_NAME=$(kubectl config view -o jsonpath='{.contexts[?(@.name == "'"${CURRENT_CONTEXT}"'")].context.user}')
-$ CLUSTER_NAME=$(kubectl config view -o jsonpath='{.contexts[?(@.name == "'"${CURRENT_CONTEXT}"'")].context.cluster}')
-$ kubectl config set-context spark --namespace=spark-cluster --cluster=${CLUSTER_NAME} --user=${USER_NAME}
-$ kubectl config use-context spark
-```
-
-## Step Two: Start your Master service
-
-The Master [service](../../docs/user-guide/services.md) is the master service
-for a Spark cluster.
-
-Use the
-[`examples/spark/spark-master-controller.yaml`](spark-master-controller.yaml)
-file to create a
-[replication controller](../../docs/user-guide/replication-controller.md)
-running the Spark Master service.
-
-```console
-$ kubectl create -f examples/spark/spark-master-controller.yaml
-replicationcontroller "spark-master-controller" created
-```
-
-Then, use the
-[`examples/spark/spark-master-service.yaml`](spark-master-service.yaml) file to
-create a logical service endpoint that Spark workers can use to access the
-Master pod:
-
-```console
-$ kubectl create -f examples/spark/spark-master-service.yaml
-service "spark-master" created
-```
 
 ### Check to see if Master is running and accessible
 
