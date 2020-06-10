@@ -27,8 +27,6 @@ This example assumes
 - That you have installed the ```kubectl``` command line tool installed in your path and configured to talk to your Kubernetes cluster
 - That your Kubernetes cluster is running [kube-dns](https://github.com/kubernetes/dns) or an equivalent integration.
 
-Optionally, your Kubernetes cluster should be configured with a Loadbalancer integration (automatically configured via kube-up or GKE)
-
 ## Step One: Build Service And Pods By Yaml Files
 
 ```sh
@@ -52,14 +50,12 @@ zeppelin-controller-slfx6         1/1     Running   0          4s
 
 You can see that Kubernetes is running one instance of Zeppelin, one Spark master and three Spark workers.
 
-## Step Two: Set up the Secure Proxy to Zeppelin 
-Next you’ll set up a secure proxy from your local machine to Zeppelin, so you can access the Zeppelin instance running in the cluster from your machine. (Note: You’ll need to change this command to the actual Zeppelin pod that was created on your cluster.)
+## Step Two: Set up the Zeppelin Http Port To Node
+Next you’ll set up a Http port mapping from your local machine to Zeppelin, so you can access the Zeppelin instance running in the cluster from your machine. (Note: You’ll need to change this command to the actual Zeppelin pod that was created on your cluster.)
 ```sh
 $ kubectl port-forward zeppelin-controller-slfx6 80:8080 --address 0.0.0.0
 ```
-This establishes a secure link to the Kubernetes cluster and pod ```(zeppelin-controller-slfx6)``` and then forwards the port in question (8080) to local port 80, which will allow you to use Zeppelin safely.
-
-
+This establishes a port mapping to the Kubernetes cluster and pod ```(zeppelin-controller-slfx6)``` and then forwards the port in pod (8080) to local port 80, which will allow you to use Zeppelin by your machine/node's ip.
 
 
 ### Try Zeppelin With Spark
