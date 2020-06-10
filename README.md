@@ -31,11 +31,24 @@ This example assumes
 
 Optionally, your Kubernetes cluster should be configured with a Loadbalancer integration (automatically configured via kube-up or GKE)
 
-## Step One: Create namespace
+## Step One: Build
 
 ```sh
-$ kubectl create -f examples/spark/namespace-spark-cluster.yaml
+$ git clone https://github.com/kainwei/zeppelin_spark_on_kubernete.git
+$ kubectl create -f zeppelin_spark_on_kubernete/kubernete_yaml
 ```
+```‘zeppelin_spark_on_kubernete/kubernete_yaml’``` is a directory, so this command tells kubectl to create all of the Kubernetes objects defined in all of the YAML files in that directory. You don’t have to clone the entire repository, but it makes the steps of this demo just a little easier.
+
+```sh
+$ kubectl get pods
+NAME                              READY   STATUS    RESTARTS   AGE
+spark-master-controller-mtsvl     1/1     Running   0          4s
+spark-ui-proxy-controller-nxw22   1/1     Running   0          4s
+spark-worker-controller-98w92     1/1     Running   0          4s
+spark-worker-controller-tkxhz     1/1     Running   0          4s
+zeppelin-controller-slfx6         1/1     Running   0          4s
+```
+The pods (especially Apache Zeppelin) are somewhat large, so may take some time for Docker to pull the images. Once everything is running, you should see something similar to the following:
 
 Now list all namespaces:
 
